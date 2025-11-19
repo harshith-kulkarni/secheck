@@ -1,0 +1,214 @@
+week 8 :
+building pipeline for webapp/java
+
+freestyle projects 
+build :
+ select git ,add build step invoke top maven  clean , install
+post build archive artifacts **/*
+build other project test
+save apply
+
+
+test :
+build steps invoke maven test 
+copy artifacts from build 
+add post build archive artifacts 
+build deploy
+
+deploy:
+
+copy artifacts from test 
+add post build archive artifacts 
+in build step deploy to war/ear 
+**/* 
+contextpath webpathn
+add container tomcat 9.x 
+add your port https://localhost:8085 like that
+build deploy
+
+
+
+pipeline : in view build pipeline 
+select initial step maven_build or web_build
+
+run pipeline
+---------------------------------------------------------------------------
+week 9 
+
+web app :
+pipeline{
+    agent any
+    tools{
+        jdk 'JAVA_HOME'
+        maven 'MAVEN_HOME'
+    }
+    stages{
+        stage('git repo and clean'){
+            steps{
+            bat 'rmdir /s/q java_se_lab || exit 0'
+            bat 'git clone https://github.com/harshith-kulkarni/java_se_lab'
+            echo 'cloned repo'
+
+        }
+        }
+        stage('clean'){
+            steps{
+            dir('java_se_lab'){
+                bat 'mvn clean compile'
+
+            }
+            echo 'compiled'
+            }
+        }
+        stage('test'){
+            steps{
+                dir('java_se_lab'){
+                    bat 'mvn test '
+                }
+                echo 'tested'
+            }
+            
+        }
+        stage('package'){
+            steps{
+                dir('java_se_lab'){
+                    bat 'mvn package '
+                    archiveArtifacts 'target/*.jar'
+                }
+                  echo 'packaged'
+            }
+          
+        }
+    }
+    post{
+        always{
+            cleanWs()
+        }
+        success{
+            echo 'build done'
+        }
+        failure{
+            echo 'build failed'
+        }
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+week 10 
+triggers :
+triggers build periodically ******
+pipeline :
+pipeline{
+    agent any
+    tools{
+        jdk 'JAVA_HOME'
+        maven 'MAVEN_HOME'
+    }
+    stages{
+        stage('git repo and clean'){
+            steps{
+            bat 'rmdir /s/q java_se_lab || exit 0'
+            bat 'git clone https://github.com/harshith-kulkarni/java_se_lab'
+            echo 'cloned repo'
+
+        }
+        }
+        stage('clean'){
+            steps{
+            dir('java_se_lab'){
+                bat 'mvn clean compile'
+
+            }
+            echo 'compiled'
+            }
+        }
+        stage('test'){
+            steps{
+                dir('java_se_lab'){
+                    bat 'mvn test '
+                }
+                echo 'tested'
+            }
+            
+        }
+        stage('package'){
+            steps{
+                dir('java_se_lab'){
+                    bat 'mvn package '
+                    archiveArtifacts 'target/*.jar'
+                }
+                  echo 'packaged'
+            }
+          
+        }
+    }
+    post{
+        always{
+            cleanWs()
+        }
+        success{
+            echo 'build done'
+        }
+        failure{
+            echo 'build failed'
+        }
+    }
+}
+
+web hooks :
+download ngrok , set the auth key 
+ngrok --version 
+
+go to the folder 
+run ngrok.exe http 8888
+then we get a link --------app
+go to git and then under settings webhooks add payload -------app/github-webhooks
+then in new tab ------app will be accessible and we get the Jenkins on it 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+week 11 :;
+Kubernetes
+
+in cmd as administrator 
+minikube start --driver=docker
+kbectl create deplomment myngnix --image=ngnix
+kubectl expose deployment myngnix --type=NodePort 80
+kubectl scale deployment myngnix --replicas=4
+kubectl port-forward svc/myngnix 8080:80
+
+minikube dashboard
+
+
+nagios :
+docker pull jsonrivers/nagios:latest
+docker run --name nagios-container -d -p 8080: 80 jsonrivers/nagios
+docker start nagios-container 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+week 12 :
+got to aws student login untitled 
+under modules 
+lab 
+create ec2 , ubuntu
+give name , get .pem file and then in that instance get the ssh key command 
+then in your cmd go to local folder paste that ssh
+
+we need to get ubuntu in it 
+sudo apt-get update
+sudo apt-get install docker
+sudo apt-get install git 
+git clone https://github.com/archanareddyse/mavenweb.git
+go to folder 
+sudo docker build -t img1 .
+sudo docker run -d -p 80:8080 img1
+
+then we would be able to see website in the 8080
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
