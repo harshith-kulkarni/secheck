@@ -211,4 +211,106 @@ then we would be able to see website in the 8080
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
+minikube stop
+minikube start --driver=docker
+kubectl create deployment mynginx --image=nginx
+kubectl expose deployment mynginx --type=NodePort --port=80
+kubectl scale deployment mynginx --replicas=4
+kubectl port-forward svc/mynginx 8081:80
 
+minikube dashboard (new powershell)
+
+
+
+docker pull jasonrivers/nagios:latest
+docker rm -f nagiosdemo
+docker run --name nagiosdemo -p 8091:80 jasonrivers/nagios:latest
+
+
+
+
+docker stop nagiosdemo
+docker docker rm nagiosdemo
+docker rmi jasonrivers/nagios
+docker rmi jasonrivers/nagios (in new power shell)
+
+
+
+4 questions 25 each
+Jenkins
+pre-requisites
+1)local host 8080--tomcat //when u go in this u should know userid and pass
+2)plugins section 
+	email-extension
+3)tools and configuration
+	maven, git, jdk
+Questions:
+1) two pipeline
+2) 3 pipeline
+3) build triggers -- webhooks
+4) email-notification
+5) scripted pipeline
+
+what to do:
+install ngrok
+sign up
+open cmd of ngrok
+in that page there will be ngrok config copy that and paste in cmd
+ngrok .exe http 8080
+
+6)Kubernetes---minikube
+pre-requisites
+docker- desktop should be running
+u should have docker image
+
+cmds
+	minikube version
+	minikube status
+	kubectl create deployement myngnix --image=nginx
+	minikube status
+	kubectl get deployement
+	kubectl get pods
+	kubectl describe pods
+	kubectl scale deployement myngnix --replicas=4
+	kubectl get deployement
+	kubectl get pods
+	kubectl describe pod copy-paste
+	kubectl get service myngnix
+	kubectl expose deployment myngnix --type=NodePort --port=80 --target-port=80 --name=myngnix
+	kubectl get service myngnix
+	kubectl port-forward service/myngnix 30088:80
+	open url 
+	minikube dashboard
+	open deployements and pods
+	kubectl delete deployement myngnix
+	minikube stop
+
+7)nagios
+docker--docker pull nagios 
+
+
+8)aws
+ create ec2 instance
+ connect it
+ cmds:
+	docker --version
+	sudo su //it moves to admin
+	sudo apt-get update
+	sudo apt-get install docker.io
+	sudo docker images
+	sudo docker ps
+	git clone url.git
+	ls
+	cd that folder
+	sudo docker build -t img1 . 
+	sudo docker images
+	sudo docker run -d -p 80:8080 img1
+
+9)UML-- use case diagram
+	class
+	sequence
+	component
+case study-- 	online reservation 
+		hospital management
+		book banking systems	
+each set will be having one diagram
